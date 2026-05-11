@@ -1,11 +1,11 @@
-#include <stdio.h>
+#include <iostream>
 
-enum snake_error_t 
+enum class snake_error_t 
 {
     NOT_ERROR = 0
 };
 
 int main ()
 {
-    return NOT_ERROR;
+    return static_cast<int> (snake_error_t::NOT_ERROR);
 }
