@@ -1,6 +1,6 @@
 CC=g++
 
-#MODE=DEBUG
+MODE=DEBUG
 #MODE=RELEASE
 #MODE=TEST
 
@@ -12,7 +12,7 @@ CC=g++
 #-DPRINT_TEXT_FROM_FILE
 #-DPRINT_INF_ABOUT_HASH_FUNC  
 
-FILES=main.o
+FILES=main.o run_game.o
 TARGET=snake
 #INTRINSICS=-mavx2 -msse -msse2
 #INLINE_ASM=-masm=intel
@@ -52,6 +52,9 @@ $(TARGET): $(FILES)
 
 main.o: src/main.cpp
 	@$(CC) -c $(COMPILATION) src/main.cpp -o build/main.o
+
+run_game.o: src/run_game.cpp
+	@$(CC) -c $(COMPILATION) src/run_game.cpp -o build/run_game.o
 
 clean:
 	rm -rf $(TARGET)
