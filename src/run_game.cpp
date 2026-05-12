@@ -12,7 +12,7 @@
 
 void run_game ()
 {
-    snake_t snake;
+    snake_t snake (symbol_code_t::SNAKE_1);
 
     #ifdef PRINT_LIST_SNAKE_INF_
     code_position (__FILE__, __LINE__);
@@ -20,4 +20,8 @@ void run_game ()
     #endif
 
     set_canonical_mode(); 
+
+    view_t view;
+    view.reset_symbols_codes ();
+    view.print_symbols_codes ();
 }

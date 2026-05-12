@@ -100,7 +100,7 @@ private:
     direction_t        direction;
     symbol_code_t      snake_code;
 
-    friend class big_snake_t;
+    friend class big_snake_t;     //TODO iterator
 };
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -126,6 +126,8 @@ private:
     symbol_code_t snake_code;
 };
 
+//-------------------------------------------------------------------------------
+class view_t;
 
 class big_snake_t 
 {
@@ -139,7 +141,7 @@ public:
     {
         symbol_code_t snake_code = ptr_snake.snake_code;
 
-        for (const auto& point : ptr_snake.snake)
+        for (const auto& point : ptr_snake.snake)      //TODO iterator
         {
             add_big_snake_point_in_list (point, snake_code);
         }
@@ -153,6 +155,8 @@ private:
         big_snake_point_t init_coordinate (point.x_read (), point.y_read (), snake_code);
         list_coord_of_snakes.push_back (init_coordinate);
     }
+
+    friend class view_t;   //TODO iterator
 };
 
 #endif

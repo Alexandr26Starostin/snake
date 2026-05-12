@@ -18,13 +18,15 @@ const char SNAKE_1_COLOR[]     = "\u001b[38;5;46m";    //green
 const char SNAKE_2_COLOR[]     = "\u001b[38;5;227m";   //yellow
 const char SNAKE_3_COLOR[]     = "\u001b[38;5;75m";    //blue
 const char SNAKE_4_COLOR[]     = "\u001b[38;5;165m";   //purple
+const char RED_ERROR[]         = "\u001b[38;5;196m";   
 #endif
 //--------------------------------------------------------------------------------------
 
 namespace SNAKE_CONST { 
-    const size_t MAX_VALUE_X       = 100;
-    const size_t MAX_VALUE_Y       = 100;
+    const size_t MAX_VALUE_X       = 30;
+    const size_t MAX_VALUE_Y       = 15;
     const size_t INIT_LENGTH_SNAKE = 3;
+    const size_t MAX_COUNT_SNAKES  = 4;
 }
 
 inline void code_position (const char* file, const int line)
@@ -38,12 +40,14 @@ inline void code_position (const char* file, const int line)
 
 enum class symbol_code_t
 {
-    CLEAR   = 0,
-    APPLE   = 1,
-    SNAKE_1 = 2,
-    SNAKE_2 = 3,
-    SNAKE_3 = 4,
-    SNAKE_4 = 5
+    CLEAR     = 0,
+    APPLE     = 1,
+    BOARD_HOR = 2,
+    BOARD_VER = 3,
+    SNAKE_1   = 4,
+    SNAKE_2   = 5,
+    SNAKE_3   = 6,
+    SNAKE_4   = 7
 };
 
 enum class direction_t
