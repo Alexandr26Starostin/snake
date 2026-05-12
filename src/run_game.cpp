@@ -1,6 +1,4 @@
 #include <iostream>
-#include <termios.h>
-#include <unistd.h>
 
 #include "const.h"
 #include "snake.h"
@@ -8,34 +6,18 @@
 #include "model.h"
 #include "run_game.h"
 
-static void setCanonicalMode ();
+//#define PRINT_LIST_SNAKE_INF_
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-
-static void setCanonicalMode () 
-{
-    struct termios tty;
-
-    //get current parameters of terminal
-    if (tcgetattr(STDIN_FILENO, &tty) != 0) 
-    {
-        std::cerr << __FILE__ << ":" << __LINE__ << "\nError: tcgetattr" << std::endl;
-        return;
-    }
-
-    //turn on canonical mode: ICANON and ECHO
-    tty.c_lflag |= (ICANON | ECHO);
-    
-    //apply settings
-    tcsetattr(STDIN_FILENO, TCSANOW, &tty);
-}
 
 void run_game ()
 {
     snake_t snake;
 
+    #ifdef PRINT_LIST_SNAKE_INF_
     code_position (__FILE__, __LINE__);
     snake.print_inf ();
+    #endif
 
-    setCanonicalMode(); 
+    set_canonical_mode(); 
 }

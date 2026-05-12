@@ -7,14 +7,6 @@
 
 #include "const.h"
 
-enum class direction_t
-{
-    UP    = 0,
-    LEFT  = 1,
-    RIGHT = 2,
-    DOWN  = 3
-};
-
 class point_t
 {
 public:
@@ -34,14 +26,19 @@ public:
         std::cout << "------------------------------------------------------\n" << std::endl;   
     }
 
+    size_t x_read () const {return x;}
+    size_t y_read () const {return y;}
+
 private:
     size_t x, y;
 };
 
+class big_snake_t;
+
 class snake_t
 {
 public:
-    snake_t () : direction(direction_t::UP)
+    snake_t (symbol_code_t snake_code_init = symbol_code_t::SNAKE_1) : direction(direction_t::UP), snake_code(snake_code_init)
     {
         size_t x_init = SNAKE_CONST::MAX_VALUE_X / 2;
         size_t y_init = SNAKE_CONST::MAX_VALUE_Y / 2;
@@ -90,10 +87,72 @@ public:
         snake.clear();
     }
 
+    // void add_snake_in_printing_list ()
+    // {
+    //     for (const auto& point : snake)
+    //     {
+            
+    //     }
+    // }
 
 private:
     std::list<point_t> snake;
     direction_t        direction;
+    symbol_code_t      snake_code;
+
+    friend class big_snake_t;
+};
+
+//--------------------------------------------------------------------------------------------------------------------
+//big_snake
+
+class big_snake_point_t : public point_t
+{
+public:
+
+    big_snake_point_t (size_t x_init = 0, size_t y_init = 0, symbol_code_t snake_code_init = symbol_code_t::SNAKE_1) : point_t {x_init, y_init}, 
+                                                                                                                    snake_code {snake_code_init} {}
+
+    void set_big_snake_point (size_t x_new = 0, size_t y_new = 0, symbol_code_t snake_code_init = symbol_code_t::SNAKE_1) 
+    {
+        set_coordinates (x_new, y_new);
+        
+        snake_code = snake_code_init;
+    }
+
+    symbol_code_t snake_code_read () const {return snake_code;}
+
+private:
+    symbol_code_t snake_code;
+};
+
+
+class big_snake_t 
+{
+public:
+    ~big_snake_t ()
+    {
+        list_coord_of_snakes.clear();
+    }
+
+    void add_snake_in_list (const snake_t& ptr_snake)
+    {
+        symbol_code_t snake_code = ptr_snake.snake_code;
+
+        for (const auto& point : ptr_snake.snake)
+        {
+            add_big_snake_point_in_list (point, snake_code);
+        }
+    }
+
+private:
+    std::list<big_snake_point_t> list_coord_of_snakes;
+
+    void add_big_snake_point_in_list (point_t point, symbol_code_t snake_code)
+    {
+        big_snake_point_t init_coordinate (point.x_read (), point.y_read (), snake_code);
+        list_coord_of_snakes.push_back (init_coordinate);
+    }
 };
 
 #endif
